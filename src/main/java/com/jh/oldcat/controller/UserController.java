@@ -37,10 +37,10 @@ public class UserController {
      * 测试
      * @return
      */
-    @PostMapping("/test")
-    public Result test(){
-
-        return Result.ok().message("test");
+    @PostMapping("/checkToken")
+    public Result checkToken(String token){
+        Map<String, Object> stringObjectMap = JWTUtils.checkToken(token);
+        return Result.ok().message("stringObjectMap");
     }
 
 

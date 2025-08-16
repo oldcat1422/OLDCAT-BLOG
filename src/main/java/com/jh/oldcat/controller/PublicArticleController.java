@@ -3,6 +3,7 @@ package com.jh.oldcat.controller;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.jh.oldcat.entity.Article;
+import com.jh.oldcat.entity.VO.ArticleTagVo;
 import com.jh.oldcat.service.ArticleService;
 import com.jh.oldcat.utils.Result;
 import lombok.AllArgsConstructor;
@@ -28,11 +29,11 @@ public class PublicArticleController {
 
     //获取全部文章(分页 pageNo当前页码  pageSize每页显示个数)
     @PostMapping("/getAllArticlePage")
-    public Result getAllArticlePage(Article article,
-                                 @RequestParam(value = "pageNo",defaultValue = "1") Integer pageNo,
-                                 @RequestParam(value = "pageSize",defaultValue = "5")Integer pageSize){
+    public Result getAllArticlePage(ArticleTagVo articleTagVo,
+                                    @RequestParam(value = "pageNo",defaultValue = "1") Integer pageNo,
+                                    @RequestParam(value = "pageSize",defaultValue = "5")Integer pageSize){
         IPage<Article> page = new Page<>(pageNo,pageSize);
-        IPage<Article> allArticlePage = articleService.getAllArticlePage(page, article);
+        IPage<Article> allArticlePage = articleService.getAllArticlePage(page, articleTagVo);
         return Result.ok().data(allArticlePage);
     }
 }

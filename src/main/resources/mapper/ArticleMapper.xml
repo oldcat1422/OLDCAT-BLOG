@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.jh.oldcat.mapper.ArticleMapper">
-    <select id="getAllArticle" resultType="com.jh.oldcat.entity.Article">
-        SELECT
-            *
-        FROM
-            article
-        ORDER BY time DESC ;
+    <select id="getAllArticle" resultType="com.jh.oldcat.entity.VO.ArticleTagVo">
+        SELECT a.id,a.title,a.neirong,a.time,a.state,a.description,t.tag,a.image
+        FROM article a
+        LEFT JOIN tag t ON a.tag = t.id
+        WHERE a.state = 2
     </select>
-    <select id="getAllArticlePage" resultType="com.jh.oldcat.entity.Article">
-        select * from article where state != 0 order by time desc
+    <select id="getAllArticlePage" resultType="com.jh.oldcat.entity.VO.ArticleTagVo">
+        SELECT a.id,a.title,a.neirong,a.time,a.state,a.description,t.tag,a.image
+        FROM article a
+                 LEFT JOIN tag t ON a.tag = t.id
+        WHERE a.state = 2
     </select>
     <update id="deleteArticle">
         update oldcat.article set state = "0" where id = #{id}
