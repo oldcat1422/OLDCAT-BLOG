@@ -11,8 +11,17 @@ public interface ArticleService  extends IService<Article> {
 
 
     IPage<Article> getAllArticlePage(IPage<Article> page, ArticleTagVo articleTagVo);
-
-    List<Article> getAllArticle();
+    
 
     Boolean deleteArticle(Integer articleId);
+
+    Article getOneArticle(Integer articleId);
+
+    List<Article> moreSuggest(Integer id);
+
+    Boolean addView(Integer articleId);
+
+    Integer getViews();
+
+    IPage<Article> getAllArticle(IPage<Article> page, ArticleTagVo articleTagVo);
 }

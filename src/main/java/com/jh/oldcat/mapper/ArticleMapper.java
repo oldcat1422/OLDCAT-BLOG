@@ -11,9 +11,14 @@ import java.util.List;
 @Mapper
 public interface ArticleMapper extends BaseMapper<Article> {
 
-    List<Article> getAllArticle();
 
     IPage<Article> getAllArticlePage(IPage<Article> page, ArticleTagVo articleTagVo);
 
     Boolean deleteArticle(Integer articleId);
+
+    List<Article> moreSuggest(Integer id);
+
+    Integer getViews();
+
+    IPage<Article> getAllArticle(IPage<Article> page, ArticleTagVo articleTagVo);
 }

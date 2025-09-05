@@ -41,8 +41,8 @@ public class TagController {
 
     //删除
     @PostMapping("deleteTag")
-    public Result deleteTag(@RequestBody Tag tag){
-        boolean b = tagService.removeById(tag.getId());
+    public Result deleteTag(Integer id){
+        boolean b = tagService.removeById(id);
         if (b) {
             return Result.ok().message("删除成功");
         }else{
@@ -58,6 +58,13 @@ public class TagController {
         IPage<Tag> page = new Page<>(pageNo,pageSize);
         IPage<Tag> allTag= tagService.getAllTag(page, tag);
         return Result.ok().data(allTag);
+    }
+
+    //获取一个tag（修改时获取信息用的）
+    @PostMapping("getOneTag")
+    public Result getOneArticle(Integer id){
+        Tag tag = tagService.getById(id);
+        return Result.ok().data(tag);
     }
 
 }

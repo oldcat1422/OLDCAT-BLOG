@@ -26,12 +26,36 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
     }
 
     @Override
-    public List<Article> getAllArticle() {
-        return articleMapper.getAllArticle();
+    public Boolean deleteArticle(Integer articleId) {
+        return articleMapper.deleteArticle(articleId);
     }
 
     @Override
-    public Boolean deleteArticle(Integer articleId) {
-        return articleMapper.deleteArticle(articleId);
+    public Article getOneArticle(Integer articleId) {
+        return articleMapper.selectById(articleId);
+    }
+
+    @Override
+    public List<Article> moreSuggest(Integer id) {
+        return articleMapper.moreSuggest(id);
+    }
+
+    @Override
+    public Boolean addView(Integer articleId) {
+        Article article = articleMapper.selectById(articleId);
+        article.setPageViews(article.getPageViews() + 1);
+        articleMapper.updateById(article);
+
+        return null;
+    }
+
+    @Override
+    public Integer getViews() {
+        return articleMapper.getViews();
+    }
+
+    @Override
+    public IPage<Article> getAllArticle(IPage<Article> page, ArticleTagVo articleTagVo) {
+        return articleMapper.getAllArticle(page,articleTagVo);
     }
 }

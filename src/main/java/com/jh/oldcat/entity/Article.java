@@ -24,4 +24,5 @@ public class Article implements Serializable {
     private String description;//摘要
     private Integer tag;
     private String image;
+    private Integer pageViews;
 }

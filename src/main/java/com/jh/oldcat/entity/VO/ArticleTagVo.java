@@ -20,4 +20,5 @@ public class ArticleTagVo {
     private String description;//摘要
     private String tag;
     private String image;
+    private Integer pageViews;
 }
