@@ -24,4 +24,6 @@ public interface ArticleService  extends IService<Article> {
     Integer getViews();
 
     IPage<Article> getAllArticle(IPage<Article> page, ArticleTagVo articleTagVo);
+
+    IPage<Article> recycle(IPage<Article> page, ArticleTagVo articleTagVo);
 }

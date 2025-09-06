@@ -5,14 +5,22 @@
         SELECT a.id,a.title,a.neirong,a.time,a.state,a.description,t.tag,a.image,a.page_views
         FROM article a
                  LEFT JOIN tag t ON a.tag = t.id
-        order by time DESC
+        WHERE a.state != 0
+        order by id DESC
+    </select>
+    <select id="recycle" resultType="com.jh.oldcat.entity.VO.ArticleTagVo">
+        SELECT a.id,a.title,a.neirong,a.time,a.state,a.description,t.tag,a.image,a.page_views
+        FROM article a
+                 LEFT JOIN tag t ON a.tag = t.id
+        WHERE a.state = 0
+        order by id DESC
     </select>
     <select id="getAllArticlePage" resultType="com.jh.oldcat.entity.VO.ArticleTagVo">
         SELECT a.id,a.title,a.neirong,a.time,a.state,a.description,t.tag,a.image,a.page_views
         FROM article a
                  LEFT JOIN tag t ON a.tag = t.id
         WHERE a.state = 2
-        order by time DESC
+        order by id DESC
     </select>
     <update id="deleteArticle">
         update oldcat.article set state = "0" where id = #{id}

@@ -20,20 +20,12 @@ public class PublicArticleController {
     @Autowired
     private ArticleService articleService;
 
-    /**
-     * 获取全部文章-（所有状态）
-     * @return
-     */
-    @GetMapping("/getAllArticle")
-    public Result getAllArticle(ArticleTagVo articleTagVo,
-                                @RequestParam(value = "pageNo",defaultValue = "1") Integer pageNo,
-                                @RequestParam(value = "pageSize",defaultValue = "10")Integer pageSize){
-        IPage<Article> page = new Page<>(pageNo,pageSize);
-        IPage<Article> allArticle = articleService.getAllArticle(page, articleTagVo);
-        return Result.ok().message("获取成功").data(allArticle);
-    }
+
+
+
 
     /**
+     * 前台-展示数据
      * 获取全部文章-状态为2（已上架）
      * (分页 pageNo当前页码  pageSize每页显示个数)
      * @param articleTagVo

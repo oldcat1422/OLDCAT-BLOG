@@ -58,4 +58,9 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
     public IPage<Article> getAllArticle(IPage<Article> page, ArticleTagVo articleTagVo) {
         return articleMapper.getAllArticle(page,articleTagVo);
     }
+
+    @Override
+    public IPage<Article> recycle(IPage<Article> page, ArticleTagVo articleTagVo) {
+        return articleMapper.recycle(page,articleTagVo);
+    }
 }

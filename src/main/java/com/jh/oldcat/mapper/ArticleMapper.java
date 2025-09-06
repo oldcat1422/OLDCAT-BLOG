@@ -21,4 +21,6 @@ public interface ArticleMapper extends BaseMapper<Article> {
     Integer getViews();
 
     IPage<Article> getAllArticle(IPage<Article> page, ArticleTagVo articleTagVo);
+
+    IPage<Article> recycle(IPage<Article> page, ArticleTagVo articleTagVo);
 }

@@ -1,6 +1,9 @@
 package com.jh.oldcat.controller;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.jh.oldcat.entity.Article;
+import com.jh.oldcat.entity.VO.ArticleTagVo;
 import com.jh.oldcat.service.ArticleService;
 import com.jh.oldcat.utils.Result;
 import lombok.AllArgsConstructor;
@@ -53,5 +56,25 @@ public class ArticleController {
 
         }
     }
-
+    @PostMapping("/recycle")
+    public Result recycle(ArticleTagVo articleTagVo,
+                          @RequestParam(value = "pageNo",defaultValue = "1") Integer pageNo,
+                          @RequestParam(value = "pageSize",defaultValue = "10")Integer pageSize){
+        IPage<Article> page = new Page<>(pageNo,pageSize);
+        IPage<Article> allArticle = articleService.recycle(page, articleTagVo);
+        return Result.ok().message("获取成功").data(allArticle);
+    }
+    /**
+     * 后台-文章设置
+     * 获取全部文章-（状态不等于0）未删除的
+     * @return
+     */
+    @GetMapping("/getAllArticle")
+    public Result getAllArticle(ArticleTagVo articleTagVo,
+                                @RequestParam(value = "pageNo",defaultValue = "1") Integer pageNo,
+                                @RequestParam(value = "pageSize",defaultValue = "10")Integer pageSize){
+        IPage<Article> page = new Page<>(pageNo,pageSize);
+        IPage<Article> allArticle = articleService.getAllArticle(page, articleTagVo);
+        return Result.ok().message("获取成功").data(allArticle);
+    }
 }
