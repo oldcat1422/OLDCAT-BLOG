@@ -36,6 +36,7 @@ public void doFilter(ServletRequest servletRequest, ServletResponse servletRespo
     // ########################## 关键：统一设置CORS响应头 ##########################
     // 允许的源（根据实际前端地址修改，如 http://localhost:5173）
     response.setHeader("Access-Control-Allow-Origin", "http://localhost:5173");
+//    response.setHeader("Access-Control-Allow-Origin", "https://jinha.vip");
     // 允许的请求方法
     response.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
     // 允许的请求头（需包含前端实际传递的头，如 Authorization）

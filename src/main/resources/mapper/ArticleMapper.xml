@@ -20,13 +20,13 @@
         FROM article a
                  LEFT JOIN tag t ON a.tag = t.id
         WHERE a.state = 2
-        order by id DESC
+        order by time DESC
     </select>
     <update id="deleteArticle">
         update oldcat.article set state = "0" where id = #{id}
     </update>
     <select id="moreSuggest" resultType="com.jh.oldcat.entity.Article">
-        SELECT title,description FROM article
+        SELECT id,title,description FROM article
         WHERE id != #{id} AND state = 2
         ORDER BY RAND()
         LIMIT 4;

@@ -10,6 +10,8 @@ import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import static net.sf.jsqlparser.parser.feature.Feature.update;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/tag")
 @CrossOrigin
@@ -58,6 +60,13 @@ public class TagController {
         IPage<Tag> page = new Page<>(pageNo,pageSize);
         IPage<Tag> allTag= tagService.getAllTag(page, tag);
         return Result.ok().data(allTag);
+    }
+
+    //获取全部tag（不分页）
+    @GetMapping("/getAllTags")
+    public Result getAllTags(){
+        List<Tag> tags = tagService.list();
+        return Result.ok().data(tags);
     }
 
     //获取一个tag（修改时获取信息用的）

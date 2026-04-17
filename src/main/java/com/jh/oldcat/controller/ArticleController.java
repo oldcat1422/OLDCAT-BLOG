@@ -25,12 +25,21 @@ public class ArticleController {
     //添加文章
     @PostMapping("/addArticle")
     public Result addArticle(@RequestBody Article article) {
-        boolean save = articleService.save(article);
-        if (save) {
-            return Result.ok().message("添加成功");
-        }else {
-            return Result.error().message("登陆失败");
-
+        //先处理文章数据
+        if(article.getTitle() == null || article.getTitle().length() == 0){
+            return Result.error().message("文章标题不能为空");
+        }else if(article.getNeirong() == null || article.getNeirong().length() == 0){
+            return Result.error().message("文章正文不能为空");
+        } else if (article.getTag() == null) {
+            return Result.error().message("请选择文章标签");
+        }else{
+            article.setState(0);    //默认文章状态设置成0未上架
+            boolean save = articleService.save(article);
+            if (save) {
+                return Result.ok().message("添加成功");
+            }else {
+                return Result.error().message("登陆失败");
+            }
         }
     }
 
@@ -45,7 +54,11 @@ public class ArticleController {
         }
     }
 
-    //删除文章
+    /**
+     * 删除文章（将状态改为  0已删除  ）
+     * @param articleId
+     * @return
+     */
     @DeleteMapping("deleteArticle")
     public Result deleteArticle(Integer articleId){
         Boolean b = articleService.deleteArticle(articleId);
@@ -56,6 +69,15 @@ public class ArticleController {
 
         }
     }
+
+    /**
+     * 后台-文章管理-回收站
+     * 回收站（状态为0的文章）
+     * @param articleTagVo
+     * @param pageNo
+     * @param pageSize
+     * @return
+     */
     @PostMapping("/recycle")
     public Result recycle(ArticleTagVo articleTagVo,
                           @RequestParam(value = "pageNo",defaultValue = "1") Integer pageNo,

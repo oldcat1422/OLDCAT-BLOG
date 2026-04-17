@@ -109,7 +109,7 @@
                 <version>${spring-boot.version}</version>
                 <configuration>
                     <mainClass>com.jh.oldcat.OldcatApplication</mainClass>
-                    <skip>true</skip>
+                    <skip>false</skip>
                 </configuration>
                 <executions>
                     <execution>

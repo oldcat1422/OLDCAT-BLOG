@@ -8,7 +8,11 @@ import com.jh.oldcat.service.ArticleService;
 import com.jh.oldcat.utils.Result;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 import java.util.List;
 
 @RestController
@@ -19,8 +23,6 @@ public class PublicArticleController {
 
     @Autowired
     private ArticleService articleService;
-
-
 
 
 
@@ -39,7 +41,7 @@ public class PublicArticleController {
                                     @RequestParam(value = "pageSize",defaultValue = "6")Integer pageSize){
         IPage<Article> page = new Page<>(pageNo,pageSize);
         IPage<Article> allArticlePage = articleService.getAllArticlePage(page, articleTagVo);
-        return Result.ok().data(allArticlePage);
+        return Result.ok().data(allArticlePage).message("数据获取成功");
     }
 
     //获取1篇文章
@@ -72,5 +74,16 @@ public class PublicArticleController {
             return Result.ok().data(views/1000.0 + "k");
         }
         return Result.ok().data(views);
+    }
+
+    /**
+     * 归档界面数据
+     * @param
+     * @return
+     */
+    @PostMapping("getGuiDangData")
+    public Result getGuiDangData(){
+        List<Article> list = articleService.getGuiDangData();
+        return Result.ok().data(list);
     }
 }

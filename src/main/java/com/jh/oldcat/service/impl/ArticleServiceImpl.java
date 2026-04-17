@@ -11,6 +11,7 @@ import com.jh.oldcat.service.ArticleService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -62,5 +63,15 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
     @Override
     public IPage<Article> recycle(IPage<Article> page, ArticleTagVo articleTagVo) {
         return articleMapper.recycle(page,articleTagVo);
+    }
+
+    @Override
+    public List<Article> getGuiDangData() {
+        QueryWrapper queryWrapper = new QueryWrapper();
+        queryWrapper.eq("state", 2);
+        queryWrapper.select("id","title","time");
+        queryWrapper.orderByDesc("time");
+        List<Article> list = articleMapper.selectList(queryWrapper);
+        return list;
     }
 }

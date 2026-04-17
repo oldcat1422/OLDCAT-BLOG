@@ -27,7 +27,6 @@ public class PublicUserController {
      */
     @PostMapping("/login")
     public Result login(@RequestBody User user){
-
         User loginuser = userService.login(user.getUsername(),user.getPassword());
         if(loginuser != null){
             //根据得到的用户信息生成token
