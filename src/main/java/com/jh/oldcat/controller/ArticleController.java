@@ -33,7 +33,7 @@ public class ArticleController {
         } else if (article.getTag() == null) {
             return Result.error().message("请选择文章标签");
         }else{
-            article.setState(0);    //默认文章状态设置成0未上架
+            article.setState(1);    //默认文章状态设置成1未上架
             boolean save = articleService.save(article);
             if (save) {
                 return Result.ok().message("添加成功");

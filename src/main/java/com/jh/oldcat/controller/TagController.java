@@ -62,7 +62,10 @@ public class TagController {
         return Result.ok().data(allTag);
     }
 
-    //获取全部tag（不分页）
+    /**
+     * 获取全部 tag（不分页）---给新建文章的下拉框使用的
+     * @return
+     */
     @GetMapping("/getAllTags")
     public Result getAllTags(){
         List<Tag> tags = tagService.list();

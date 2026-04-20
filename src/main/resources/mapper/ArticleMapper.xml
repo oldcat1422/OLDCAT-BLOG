@@ -5,7 +5,6 @@
         SELECT a.id,a.title,a.neirong,a.time,a.state,a.description,t.tag,a.image,a.page_views
         FROM article a
                  LEFT JOIN tag t ON a.tag = t.id
-        WHERE a.state != 0
         order by id DESC
     </select>
     <select id="recycle" resultType="com.jh.oldcat.entity.VO.ArticleTagVo">
