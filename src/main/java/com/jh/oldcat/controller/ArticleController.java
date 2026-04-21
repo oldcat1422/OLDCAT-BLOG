@@ -43,6 +43,17 @@ public class ArticleController {
         }
     }
 
+    //根据ID获取文章
+    @GetMapping("/getArticleById")
+    public Result getArticleById(@RequestParam Integer id){
+        Article article = articleService.getById(id);
+        if (article != null) {
+            return Result.ok().message("获取成功").data("records", article);
+        } else {
+            return Result.error().message("文章不存在");
+        }
+    }
+
     //修改文章
     @PutMapping("updateArticle")
     public Result updateArticle(@RequestBody Article article){
