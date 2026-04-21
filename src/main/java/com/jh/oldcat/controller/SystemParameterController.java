@@ -3,8 +3,12 @@ package com.jh.oldcat.controller;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.jh.oldcat.entity.Article;
 import com.jh.oldcat.entity.SystemParameter;
 import com.jh.oldcat.entity.Tag;
+import com.jh.oldcat.entity.VO.ArticleTagVo;
+import com.jh.oldcat.entity.VO.TotalNumber;
+import com.jh.oldcat.mapper.SystemParameterMapper;
 import com.jh.oldcat.service.SystemParameterService;
 import com.jh.oldcat.service.TagService;
 import com.jh.oldcat.utils.Result;
@@ -20,11 +24,16 @@ import java.util.List;
 @AllArgsConstructor
 public class SystemParameterController {
     private SystemParameterService systemParameterService;
+    private SystemParameterMapper systemParameterMapper;
 
-    //获取全部tag（不分页）
+
     @GetMapping("/getAllPara")
-    public Result getAllTags(){
-        return Result.ok();
+    public Result getAllPara(SystemParameter systemParameter,
+                             @RequestParam(value = "pageNo",defaultValue = "1") Integer pageNo,
+                             @RequestParam(value = "pageSize",defaultValue = "20")Integer pageSize){
+        IPage<SystemParameter> page = new Page<>(pageNo,pageSize);
+        IPage<SystemParameter> allpara = systemParameterService.getAllPara(page, systemParameter);
+        return Result.ok().data(allpara);
     }
 
     //关于页面-技术专长 3条
@@ -36,5 +45,44 @@ public class SystemParameterController {
         return Result.ok().data(list);
     }
 
+    //添加参数
+    @PutMapping("addPara")
+    public Result addPara(@RequestBody SystemParameter systemParameter){
+        boolean save = systemParameterService.save(systemParameter);
+        if (save) {
+            return Result.ok().message("添加成功");
+        }else {
+            return Result.error().message("添加失败");
+        }
+    }
+
+    //修改参数
+    @PostMapping("updatePara")
+    public Result updatePara(@RequestBody SystemParameter systemParameter){
+        boolean b = systemParameterService.updateById(systemParameter);
+        if (b) {
+            return Result.ok().message("修改成功");
+        }else {
+            return Result.error().message("修改失败");
+        }
+    }
+
+    //删除参数
+    @PostMapping("deletePara")
+    public Result deletePara(Integer paraId){
+        boolean b = systemParameterService.removeById(paraId);
+        if (b) {
+            return Result.ok().message("删除成功");
+        }else{
+            return Result.error().message("删除失败");
+        }
+    }
+
+    //获取统计总数
+    @GetMapping("/getTotalNumber")
+    public Result getTotalNumber(){
+        TotalNumber totalNumber = systemParameterMapper.getTotalNumber();
+        return Result.ok().data(totalNumber);
+    }
 
 }

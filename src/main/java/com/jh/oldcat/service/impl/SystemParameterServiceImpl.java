@@ -18,5 +18,8 @@ public class SystemParameterServiceImpl extends ServiceImpl<SystemParameterMappe
     @Resource
     SystemParameterMapper systemParameterMapper;
 
-
+    @Override
+    public IPage<SystemParameter> getAllPara(IPage<SystemParameter> page, SystemParameter systemParameter) {
+        return systemParameterMapper.getAllPara(page, systemParameter);
+    }
 }
