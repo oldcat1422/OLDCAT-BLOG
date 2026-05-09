@@ -26,7 +26,13 @@ public class SystemParameterController {
     private SystemParameterService systemParameterService;
     private SystemParameterMapper systemParameterMapper;
 
-
+    /**
+     * 后台-系统设置，展示所有的系统参数
+     * @param systemParameter
+     * @param pageNo
+     * @param pageSize
+     * @return
+     */
     @GetMapping("/getAllPara")
     public Result getAllPara(SystemParameter systemParameter,
                              @RequestParam(value = "pageNo",defaultValue = "1") Integer pageNo,
@@ -34,6 +40,18 @@ public class SystemParameterController {
         IPage<SystemParameter> page = new Page<>(pageNo,pageSize);
         IPage<SystemParameter> allpara = systemParameterService.getAllPara(page, systemParameter);
         return Result.ok().data(allpara);
+    }
+
+    /**
+     * 前台-关于-关于我
+     * @return
+     */
+    @GetMapping("/getAboutMe")
+    public Result getAboutMe(){
+        QueryWrapper<SystemParameter> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("para_name", "aboutMe");
+        SystemParameter para = systemParameterService.getOne(queryWrapper);
+        return Result.ok().data(para);
     }
 
     //关于页面-技术专长 3条
