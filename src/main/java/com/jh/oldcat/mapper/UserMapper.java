@@ -16,4 +16,5 @@ import org.apache.ibatis.annotations.Param;
  */
 @Mapper
 public interface UserMapper extends BaseMapper<User> {
+    IPage<User> getAllUser(IPage<User> page, User user);
 }

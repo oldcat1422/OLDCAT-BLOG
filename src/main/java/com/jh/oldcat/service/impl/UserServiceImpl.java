@@ -49,4 +49,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         return user;
     }
 
+    @Override
+    public IPage<User> getAllUser(IPage<User> page, User user) {
+        return userMapper.getAllUser(page, user);
+    }
+
 }

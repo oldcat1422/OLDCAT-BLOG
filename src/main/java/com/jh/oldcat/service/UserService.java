@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
  */
 public interface UserService extends IService<User> {
 
-
     User login(String username, String password);
+
+    IPage<User> getAllUser(IPage<User> page, User user);
 }
