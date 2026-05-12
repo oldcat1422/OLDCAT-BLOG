@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.jh.oldcat.entity.Article;
 import com.jh.oldcat.entity.VO.ArticleTagVo;
 import com.jh.oldcat.service.ArticleService;
+import com.jh.oldcat.exception.BusinessException;
 import com.jh.oldcat.utils.Result;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,22 +26,20 @@ public class ArticleController {
     //添加文章
     @PostMapping("/addArticle")
     public Result addArticle(@RequestBody Article article) {
-        //先处理文章数据
-        if(article.getTitle() == null || article.getTitle().length() == 0){
-            return Result.error().message("文章标题不能为空");
-        }else if(article.getNeirong() == null || article.getNeirong().length() == 0){
-            return Result.error().message("文章正文不能为空");
-        } else if (article.getTag() == null) {
-            return Result.error().message("请选择文章标签");
-        }else{
-            article.setState(1);    //默认文章状态设置成1未上架
-            boolean save = articleService.save(article);
-            if (save) {
-                return Result.ok().message("添加成功");
-            }else {
-                return Result.error().message("登陆失败");
-            }
+        //参数校验 —— 不满足条件直接抛异常，由全局处理器统一返回
+        if (article.getTitle() == null || article.getTitle().isEmpty()) {
+            throw new BusinessException("文章标题不能为空");
         }
+        if (article.getNeirong() == null || article.getNeirong().isEmpty()) {
+            throw new BusinessException("文章正文不能为空");
+        }
+        if (article.getTag() == null) {
+            throw new BusinessException("请选择文章标签");
+        }
+
+        article.setState(1);
+        articleService.save(article);
+        return Result.ok().message("添加成功");
     }
 
     //根据ID获取文章
